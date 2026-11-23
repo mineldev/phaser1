@@ -19,6 +19,12 @@ export class MainScene extends Phaser.Scene {
             color: '#ffffff'
         }).setOrigin(0.5);
 
+        this.textEstat = this.add.text(320, 185, 'Disponible', {
+            fontSize: '14px',
+            fontFamily: 'sans-serif',
+            color: '#94a3b8'
+        }).setOrigin(0.5);
+
     }
 
     // Se ejecuta continuamente (Game Loop)
@@ -30,11 +36,22 @@ export class MainScene extends Phaser.Scene {
         // El nombre sigue al avatar
         this.etiqueta.setPosition(this.avatar.x, this.avatar.y - 38);
 
+        //El estado sigue al avatar
+        this.textEstat.setPosition(this.avatar.x, this.avatar.y - 20);
+
     }
 
 
     actualitzarNom(nouNom) {
         this.etiqueta?.setText(nouNom || 'Anònim');
+    }
+
+    canviarColor(hexColor) {
+        this.avatar?.setFillStyle(parseInt(hexColor.replace('#', ''), 16));
+    }   
+
+    actualitzarEstat(nouEstat) {
+        this.textEstat?.setText(nouEstat);
     }
 
 

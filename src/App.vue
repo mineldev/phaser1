@@ -8,6 +8,15 @@ const nom = ref('Anna');
 // Control para mostrar u ocultar el juego
 const mostrarJoc = ref(true);
 
+// Controla color avatar
+const colorAvatar = ref('#10b981');
+
+// Controla estat
+const estat = ref('Disponible');
+
+// Controla pausa
+const pausado = ref(false);
+
 </script>
 
 <template>
@@ -19,9 +28,26 @@ const mostrarJoc = ref(true);
             <button @click="mostrarJoc = !mostrarJoc">
                 {{ mostrarJoc ? 'Amaga el llenç' : 'Mostra el llenç' }}
             </button>
+            <input type="color" v-model="colorAvatar">
+
+            <select v-model="estat">
+                <option value="Disponible">Disponible</option>
+                <option value="Ocupado">Ocupado</option>
+                <option value="Ausente">Ausente</option>
+            </select>
+
+            <button @click="pausado = !pausado">
+                {{ pausado ? 'Reanudar' : 'Pausar' }}
+            </button>
         </div>
 
-        <PhaserCanvas v-if="mostrarJoc" :nomUsuari="nom" />
+       <PhaserCanvas
+            v-if="mostrarJoc"
+            :nomUsuari="nom"
+            :colorAvatar="colorAvatar"
+            :estat="estat"
+            :pausado="pausado"
+        />
 
     </main>
 </template>

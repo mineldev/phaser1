@@ -2,7 +2,14 @@
 // 1. Importamos las herramientas de Vue
 import { ref, watch, onMounted, onUnmounted } from 'vue';
 
-const props = defineProps(['nomUsuari']);
+
+// Defino las props
+const props = defineProps([
+    'nomUsuari',
+    'colorAvatar',
+    'estat',
+    'pausado'
+]);
 
 // 2. Importamos Phaser y nuestra escena
 import Phaser from 'phaser';
@@ -33,6 +40,26 @@ onUnmounted(() => game?.destroy(true));
 watch(() => props.nomUsuari, (nouNom) => {
     const escena = game?.scene.getScene('MainScene');
     escena?.actualitzarNom(nouNom);
+});
+
+watch(() => props.colorAvatar, (nouColor) => {
+    const escena = game?.scene.getScene('MainScene');
+    escena?.canviarColor(nouColor);
+});
+
+watch(() => props.estat, (nouEstat) => {
+    const escena = game?.scene.getScene('MainScene');
+    escena?.actualitzarEstat(nouEstat);
+});
+
+watch(() => props.pausado, (estaPausado) => {
+    if (estaPausado) {
+        game?.scene.pause('MainScene');
+        console.log('Juego pausado');
+    } else {
+        game?.scene.resume('MainScene');
+        console.log('Juego reanudado');
+    }
 });
 
 </script>
